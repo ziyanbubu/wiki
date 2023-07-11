@@ -19,4 +19,4 @@ name=Demo
 
 ###
 
-GET http://localhost:8880/ebook/list1
+GET http://localhost:8880/ebook/list1?name=Vue
