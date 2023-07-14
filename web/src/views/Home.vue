@@ -53,17 +53,11 @@
           :style="{ background: '#fff', padding: '24px', margin: 0, minHeight: '280px' }"
       >
         <a-list item-layout="vertical" size="large" :pagination="pagination" :data-source="listData">
-          <template #footer>
-            <div>
-              <b>ant design vue</b>
-              footer part
-            </div>
-          </template>
           <template #renderItem="{ item }">
             <a-list-item key="item.title">
               <template #actions>
-          <span v-for="{ icon, text } in actions" :key="icon">
-            <component :is="icon" style="margin-right: 8px" />
+          <span v-for="{ type, text } in actions" :key="type">
+            <component v-bind:is="type" style="margin-right: 8px" />
             {{ text }}
           </span>
               </template>
@@ -91,7 +85,6 @@
 </template>
 
 <script lang="ts">
-import { StarOutlined, LikeOutlined, MessageOutlined } from '@ant-design/icons-vue';
 import {defineComponent, onMounted, ref, reactive, toRef} from "vue";
 import axios from 'axios';
 const listData: Record<string, string>[] = [];
@@ -100,7 +93,7 @@ for (let i = 0; i < 23; i++) {
   listData.push({
     href: 'https://www.antdv.com/',
     title: `ant design vue part ${i}`,
-    avatar: 'https://joeschmoe.io/api/v1/random',
+    avatar: 'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
     description:
         'Ant Design, a design language for background applications, is refined by Ant UED Team.',
     content:
@@ -128,17 +121,16 @@ export default defineComponent({
       },
       pageSize: 3,
     };
-    const actions: Record<string, any>[] = [
-      { icon: StarOutlined, text: '156' },
-      { icon: LikeOutlined, text: '156' },
-      { icon: MessageOutlined, text: '2' },
+    const actions: Record<string, string>[] = [
+      { type: 'StarOutlined', text: '156' },
+      { type: 'LikeOutlined', text: '156' },
+      { type: 'MessageOutlined', text: '2' },
     ];
     return {
       listData,
       pagination,
       actions,
-
-    }
+    };
 
   }
 })
