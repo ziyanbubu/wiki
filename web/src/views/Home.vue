@@ -104,7 +104,7 @@ export default defineComponent({
     const ebook1 = reactive({books: []});
     onMounted(() => {
       console.log("onMounted");
-      axios.get("http://localhost:8880/ebook/list").then((response) => {
+      axios.get(process.env.VUE_APP_SERVER + "/ebook/list").then((response) => {
       ebook.value = response.data.content;
         console.log(response);
       });
