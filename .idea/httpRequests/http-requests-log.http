@@ -1,3 +1,39 @@
+GET http://localhost:8880/ebook/list?page=1&size=4
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.7)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2023-07-16T190605.200.json
+
+###
+
+GET http://localhost:8880/ebook/list?page=1&size=4
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.7)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2023-07-16T185434.200.json
+
+###
+
+GET http://localhost:8880/ebook/list?page=1&size=4
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.7)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2023-07-16T185428.200.json
+
+###
+
+GET http://localhost:8880/ebook/list?page=1&size=4
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.7)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2023-07-16T185408.200.json
+
+###
+
 GET http://localhost:8880/ebook/list
 Connection: Keep-Alive
 User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.7)
@@ -389,46 +425,6 @@ User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.7)
 Accept-Encoding: br,deflate,gzip,x-gzip
 
 <> 2023-07-11T210831.200.json
-
-###
-
-POST http://localhost:8880/hello/post
-Content-Type: application/x-www-form-urlencoded
-Content-Length: 9
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.7)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-name=Demo
-
-<> 2023-07-11T210824.200.txt
-
-###
-
-GET http://localhost:8880/ebook/list1?name=Spring
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.7)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-<> 2023-07-11T210511.200.json
-
-###
-
-GET http://localhost:8880/ebook/list1?name=Spring
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.7)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-<> 2023-07-11T210357.200.json
-
-###
-
-GET http://localhost:8880/ebook/list1?name=java
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.7)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-<> 2023-07-11T210335.200.json
 
 ###
 
