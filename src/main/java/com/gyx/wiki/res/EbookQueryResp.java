@@ -2,6 +2,7 @@ package com.gyx.wiki.res;
 
 public class EbookQueryResp {
 
+
     private Long id;
 
     private String name;
