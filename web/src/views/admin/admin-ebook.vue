@@ -4,10 +4,27 @@
     <a-layout-content
       :style="{ background: '#fff', padding: '24px', margin: 0, minHeight: '280px' }"
     >
+
       <p>
-        <a-button type="primary" @click="add()" size="large">
-          新增
-        </a-button>
+        <a-form layout="inline" :model="param">
+          <div style="display: flex; justify-content: space-between; width: 92.2%;">
+            <a-form-item>
+              <a-input-search
+                  v-model:value="param.name"
+                  placeholder="请输入"
+                  enter-button="查询"
+                  @search="handleQuery({page:1, size: pagination.pageSize})"
+              />
+            </a-form-item>
+
+            <a-form-item>
+              <a-button type="primary" @click="add()">
+                新增<PlusCircleOutlined style="font-size: 14px;"/>
+              </a-button>
+            </a-form-item>
+          </div>
+        </a-form>
+
       </p>
       <a-table
           :columns="columns"
@@ -23,7 +40,7 @@
         <template v-slot:action="{ text, record }">
           <a-space size="small">
             <a-button type="primary" @click="edit(record)">
-              编辑
+              <FormOutlined />
             </a-button>
 
             <a-popconfirm
@@ -34,7 +51,7 @@
                 @confirm="handleDelete(record.id)"
             >
               <a-button type="danger" >
-                删除
+                <DeleteOutlined />
               </a-button>
             </a-popconfirm>
 
@@ -79,6 +96,8 @@ import {message} from "ant-design-vue";
 export default defineComponent({
   name: 'AdminEbook',
   setup() {
+    const param = ref();
+    param.value = {};
     const ebooks = ref();
     const pagination = ref({
       current: 1,
@@ -133,7 +152,8 @@ export default defineComponent({
       axios.get("/ebook/list", {
         params: {
           page: p.page,
-          size: p.size
+          size: p.size,
+          name: param.value.name
         }
       }).then((response) => {
         loading.value = false;
@@ -232,11 +252,13 @@ export default defineComponent({
 
 
     return {
+      param,
       ebooks,
       pagination,
       columns,
       loading,
       handleTableChange,
+      handleQuery,
 
       edit,
       add,
