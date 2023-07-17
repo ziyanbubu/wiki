@@ -4,6 +4,11 @@
     <a-layout-content
       :style="{ background: '#fff', padding: '24px', margin: 0, minHeight: '280px' }"
     >
+      <p>
+        <a-button type="primary" @click="add()" size="large">
+          新增
+        </a-button>
+      </p>
       <a-table
           :columns="columns"
           :row-key="record => record.id"
@@ -171,12 +176,25 @@ export default defineComponent({
       modalVisible.value = true;
       ebook.value = record
     };
-      onMounted(() => {
-        handleQuery({
-          page: 1,
-          size: pagination.value.pageSize
-        });
+
+    /**
+     * 新增
+     */
+    const add = () => {
+      modalVisible.value = true;
+      ebook.value = {};
+    };
+
+
+    onMounted(() => {
+      handleQuery({
+        page: 1,
+        size: pagination.value.pageSize
       });
+    });
+
+
+
 
     return {
       ebooks,
@@ -186,6 +204,7 @@ export default defineComponent({
       handleTableChange,
 
       edit,
+      add,
 
       ebook,
       modalVisible,
