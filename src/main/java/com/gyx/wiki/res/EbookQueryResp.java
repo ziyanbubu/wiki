@@ -1,6 +1,6 @@
 package com.gyx.wiki.res;
 
-public class EbookResp {
+public class EbookQueryResp {
 
     private Long id;
 
