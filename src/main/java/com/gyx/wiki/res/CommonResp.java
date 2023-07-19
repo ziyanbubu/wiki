@@ -17,8 +17,7 @@ public class CommonResp<T> {
      */
     private T content;
 
-    public boolean getSuccess() {
-        return success;
+    public boolean getSuccess() { return success;
     }
 
     public void setSuccess(boolean success) {
