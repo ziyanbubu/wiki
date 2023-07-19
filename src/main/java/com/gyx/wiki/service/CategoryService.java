@@ -62,6 +62,18 @@ public class CategoryService {
         return pageResp;
     }
 
+    public List<CategoryQueryResp> all(){
+
+        CategoryExample categoryExample = new CategoryExample();
+        categoryExample.setOrderByClause("sort asc");
+        List<Category> categoryList = categoryMapper.selectByExample(categoryExample);
+
+        List<CategoryQueryResp> list = CopyUtil.copyList(categoryList, CategoryQueryResp.class);
+
+
+        return list;
+    }
+
     /**
      * 保存
      */
