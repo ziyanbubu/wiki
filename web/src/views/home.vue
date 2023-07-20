@@ -89,6 +89,7 @@ export default defineComponent({
   setup(){
     const ebook = ref();
     const isShowWelcome = ref(true);
+    let categoryId2 = 0;
 
     const level1 = ref(); // 一级分类树，children属性就是二级分类
     let categorys: any;
@@ -110,24 +111,37 @@ export default defineComponent({
         }
       });
     };
+
+    const handleQueryEbook = () => {
+      axios.get("/ebook/list", {
+        params: {
+          page: 1,
+          size: 1000,
+          categoryId2: categoryId2
+        }
+
+      }).then((response) => {
+        const data = response.data;
+        ebook.value = data.content.list;
+        // ebooks1.books = data.content;
+      });
+    }
+
     const handleClick = (value: any) => {
       // console.log("menu click", value);
-      isShowWelcome.value = value.key === 'welcome';
+      if (value.key === 'welcome') {
+        isShowWelcome.value = true;
+      } else {
+        isShowWelcome.value = false;
+        categoryId2 = value.key;
+        handleQueryEbook();
+      }
     };
+
 
     onMounted(() => {
       handleQueryCategory();
-      axios.get("/ebook/list", {
-          params: {
-            page: 1,
-            size: 1000
-          }
 
-        }).then((response) => {
-          const data = response.data;
-          ebook.value = data.content.list;
-          // ebooks1.books = data.content;
-      });
     })
     const pagination = {
       onChange: (page: number) => {
