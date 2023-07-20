@@ -42,6 +42,14 @@
         </template>
         <template v-slot:action="{ text, record }">
           <a-space size="small">
+
+
+            <router-link to="/admin/doc">
+              <a-button type="primary" @click="edit(record)">
+                <FileTextOutlined />
+              </a-button>
+            </router-link>
+
             <a-button type="primary" @click="edit(record)">
               <FormOutlined />
             </a-button>
