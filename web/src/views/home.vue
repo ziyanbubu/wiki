@@ -7,10 +7,8 @@
         @click="handleClick"
     >
       <a-menu-item key="welcome">
-        <router-link :to="'/'">
           <HomeOutlined />
           <span>欢迎</span>
-          </router-link>
         </a-menu-item>
       <a-sub-menu v-for="item in level1" :key="item.id">
         <template v-slot:title>
@@ -31,7 +29,10 @@
       <a-layout-content
           :style="{ background: '#fff', padding: '24px', margin: 0, minHeight: '280px' }"
       >
-        <a-list item-layout="vertical" size="large" :grid="{ gutter: 20, column: 3}" :data-source="ebook">
+        <div class="welcome" v-show="isShowWelcome">
+          <hi>欢迎</hi>
+        </div>
+        <a-list  v-show="!isShowWelcome" item-layout="vertical" size="large" :grid="{ gutter: 20, column: 3}" :data-source="ebook">
 
           <template #renderItem="{ item }">
             <a-list-item key="item.name">
@@ -60,9 +61,9 @@
 <script lang="ts">
 import {defineComponent, onMounted, ref, reactive, toRef} from "vue";
 import axios from 'axios';
-import _default from "ant-design-vue/es/vc-pagination/Pager";
 import {Tool} from "../../public/util/tool";
 import {message} from "ant-design-vue";
+import _default from "ant-design-vue/es/color-picker";
 // const listData: Record<string, string>[] = [];
 //
 // for (let i = 0; i < 23; i++) {
@@ -87,7 +88,7 @@ export default defineComponent({
   },
   setup(){
     const ebook = ref();
-    const ebook1 = reactive({books: []});
+    const isShowWelcome = ref(true);
 
     const level1 = ref(); // 一级分类树，children属性就是二级分类
     let categorys: any;
@@ -109,9 +110,9 @@ export default defineComponent({
         }
       });
     };
-
-    const handleClick = () => {
-      console.log("menu click");
+    const handleClick = (value: any) => {
+      // console.log("menu click", value);
+      isShowWelcome.value = value.key === 'welcome';
     };
 
     onMounted(() => {
@@ -145,6 +146,7 @@ export default defineComponent({
       actions,
       handleClick,
       level1,
+      isShowWelcome,
     };
 
   }
