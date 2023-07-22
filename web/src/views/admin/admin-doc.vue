@@ -4,6 +4,8 @@
     <a-layout-content
       :style="{ background: '#fff', padding: '24px', margin: 0, minHeight: '280px' }"
     >
+      <a-row>
+        <a-col :span="12">
 
       <p>
         <a-form layout="inline" :model="param">
@@ -49,16 +51,9 @@
           </a-space>
         </template>
       </a-table>
-    </a-layout-content>
-  </a-layout>
-
-  <a-modal
-      title="文档表单"
-      v-model:visible="modalVisible"
-      :confirm-loading="modalLoading"
-      @ok="handleModalOk"
-  >
-    <a-form :model="doc" :label-col="{ span: 6 }" :wrapper-col="{ span: 18 }">
+        </a-col>
+        <a-col :span="12">
+          <a-form :model="doc" :label-col="{ span: 6 }" :wrapper-col="{ span: 18 }">
       <a-form-item label="名称">
         <a-input v-model:value="doc.name" />
       </a-form-item>
@@ -85,7 +80,11 @@
       </a-form-item>
 
     </a-form>
-  </a-modal>
+        </a-col>
+      </a-row>
+
+    </a-layout-content>
+  </a-layout>
 </template>
 
 
