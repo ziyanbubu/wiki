@@ -100,7 +100,7 @@
 import {createVNode, defineComponent, onMounted, ref} from 'vue';
 import axios from 'axios';
 import {message, Modal} from "ant-design-vue";
-import {Tool} from "../../../public/util/tool";
+import {Tool} from "@/util/tool";
 import {useRoute} from "vue-router";
 import ExclamationCircleOutlined from "@ant-design/icons-vue/ExclamationCircleOutlined";
 import E from 'wangeditor';

@@ -45,7 +45,9 @@
 
               <a-list-item-meta :description="item.description">
                 <template #title>
-                  <a :href="item.href">{{ item.name }}</a>
+                  <router-link :to="'/doc?ebookId=' + item.id">
+                    {{ item.name }}
+                  </router-link>
                 </template>
                 <template #avatar><a-avatar :src="item.cover" /></template>
               </a-list-item-meta>
@@ -61,7 +63,7 @@
 <script lang="ts">
 import {defineComponent, onMounted, ref, reactive, toRef} from "vue";
 import axios from 'axios';
-import {Tool} from "../../public/util/tool";
+import {Tool} from "@/util/tool";
 import {message} from "ant-design-vue";
 import _default from "ant-design-vue/es/color-picker";
 // const listData: Record<string, string>[] = [];
