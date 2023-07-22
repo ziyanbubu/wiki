@@ -2,8 +2,10 @@ package com.gyx.wiki.service;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.gyx.wiki.domain.Content;
 import com.gyx.wiki.domain.Doc;
 import com.gyx.wiki.domain.DocExample;
+import com.gyx.wiki.mapper.ContentMapper;
 import com.gyx.wiki.mapper.DocMapper;
 import com.gyx.wiki.req.DocQueryReq;
 import com.gyx.wiki.req.DocSaveReq;
@@ -27,6 +29,10 @@ public class DocService {
 
     @Resource
     private DocMapper docMapper;
+
+    @Resource
+    private ContentMapper contentMapper;
+
 
     @Resource
     private SnowFlake snowFlake;
@@ -79,13 +85,21 @@ public class DocService {
      */
     public void save(DocSaveReq req) {
         Doc doc = CopyUtil.copy(req, Doc.class);
+        Content content = CopyUtil.copy(req, Content.class);
         if (ObjectUtils.isEmpty(req.getId())) {
             // 新增
             doc.setId(snowFlake.nextId());
             docMapper.insert(doc);
+
+            content.setId(doc.getId());
+            contentMapper.insert(content);
         } else {
             //更新
             docMapper.updateByPrimaryKey(doc);
+            int count = contentMapper.updateByPrimaryKeyWithBLOBs(content);
+            if (count == 0) {
+                contentMapper.insert(content);
+            }
         }
 
     }
@@ -98,5 +112,11 @@ public class DocService {
         DocExample.Criteria criteria = docExample.createCriteria();
         criteria.andIdIn(ids);
         docMapper.deleteByExample(docExample);
+    }
+
+
+    public String findContent(Long id) {
+        Content content = contentMapper.selectByPrimaryKey(id);
+        return content.getContent();
     }
 }
