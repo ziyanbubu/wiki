@@ -8,6 +8,7 @@ import com.gyx.wiki.exception.BusinessException;
 import com.gyx.wiki.exception.BusinessExceptionCode;
 import com.gyx.wiki.mapper.UserMapper;
 import com.gyx.wiki.req.UserQueryReq;
+import com.gyx.wiki.req.UserResetPasswordReq;
 import com.gyx.wiki.req.UserSaveReq;
 import com.gyx.wiki.res.PageResp;
 import com.gyx.wiki.res.UserQueryResp;
@@ -103,5 +104,13 @@ public class UserService {
         } else {
             return userList.get(0);
         }
+    }
+
+    /**
+     * 修改密码
+     */
+    public void resetPassword(UserResetPasswordReq req) {
+        User user = CopyUtil.copy(req, User.class);
+        userMapper.updateByPrimaryKeySelective(user);
     }
 }
