@@ -191,7 +191,9 @@ export default defineComponent({
     //-------- 表单 ---------
     treeSelectData.value = [];
     const doc = ref();
-    doc.value = {};
+    doc.value = {
+      ebookId: route.query.ebookId
+    };
     const modalVisible = ref(false);
     const modalLoading = ref(false);
 
