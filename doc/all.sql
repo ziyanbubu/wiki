@@ -78,12 +78,12 @@ insert into `doc` (id, ebook_id, parent, name, sort, view_count, vote_count) val
 insert into `doc` (id, ebook_id, parent, name, sort, view_count, vote_count) values (6, 1, 5, '文档2.2.1', 1, 0, 0);
 
 
+-- 文档内容
+drop table if exists `content`;
+create table `content` (
+                           `id` bigint not null comment '文档id',
+                           `content` mediumtext not null comment '内容',
+                           primary key (`id`)
+) engine=innodb default charset=utf8mb4 comment='文档内容';
 
-drop table if exists `demo`;
-create table `demo`(
-                       `id` bigint not null comment 'id',
-                       `name` varchar(50) comment '名称',
-                       primary key (`id`)
-) engine=innodb default charset=utf8mb4 comment='测试';
 
-insert into `demo`(id, name) values  (1, '测试')
