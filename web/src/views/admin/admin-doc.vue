@@ -120,6 +120,9 @@ export default defineComponent({
     param.value = {};
     const docs = ref();
     const loading = ref(false);
+    // 因为树选择组件的属性状态，会随当前编辑的节点而变化，所以单独声明一个响应式变量
+    const treeSelectData = ref();
+    treeSelectData.value = [];
 
     const columns = [
       
@@ -154,7 +157,7 @@ export default defineComponent({
      **/
     const handleQuery = () => {
       loading.value = true;
-      axios.get("/doc/all").then((response) => {
+      axios.get("/doc/all/" + route.query.ebookId).then((response) => {
         loading.value = false;
         const data = response.data;
         if (data.success) {
@@ -165,6 +168,10 @@ export default defineComponent({
           level1.value = Tool.array2Tree(docs.value, 0);
           console.log("树形结构：", level1);
 
+          // 父文档下拉框初始化，相当于点击新增
+          treeSelectData.value = Tool.copy(level1.value);
+          // 为选择树添加一个"无"
+          treeSelectData.value.unshift({id: 0, name: '无'});
         } else {
           message.error(data.message);
         }
@@ -175,8 +182,6 @@ export default defineComponent({
 
 
     //-------- 表单 ---------
-    //因为树选择组件的属性状态，会随当前编辑的节点而变化，所以单独声明一个响应式变量
-    const treeSelectData = ref();
     treeSelectData.value = [];
     const doc = ref();
     doc.value = {};
