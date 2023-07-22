@@ -5,7 +5,7 @@
       :style="{ background: '#fff', padding: '24px', margin: 0, minHeight: '280px' }"
     >
       <a-row :gutter="24">
-        <a-col :span="8">
+        <a-col :span="11">
 
       <p>
         <a-form layout="inline" :model="param">
