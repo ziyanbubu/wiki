@@ -1,21 +1,28 @@
 package com.gyx.wiki.req;
 
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
 
 public class DocSaveReq {
     private Long id;
 
-    @NotNull(message = "【用户名】不能为空")
-    private String loginName;
+    @NotNull(message = "【电子书】不能为空")
+    private Long ebookId;
 
-    @NotNull(message = "【昵称】不能为空")
+    @NotNull(message = "【父文档】不能为空")
+    private Long parent;
+
+    @NotNull(message = "【名称】不能为空")
     private String name;
 
-    @NotNull(message = "【密码】不能为空")
-    // @Length(min = 6, max = 20, message = "【密码】6~20位")
-    @Pattern(regexp = "^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,20}$", message = "【密码】至少包含 数字和英文，长度6-20")
-    private String password;
+    @NotNull(message = "【顺序】不能为空")
+    private Integer sort;
+
+    private Integer viewCount;
+
+    private Integer voteCount;
+
+    @NotNull(message = "【内容】不能为空")
+    private String content;
 
     public Long getId() {
         return id;
@@ -25,12 +32,20 @@ public class DocSaveReq {
         this.id = id;
     }
 
-    public String getLoginName() {
-        return loginName;
+    public Long getEbookId() {
+        return ebookId;
     }
 
-    public void setLoginName(String loginName) {
-        this.loginName = loginName;
+    public void setEbookId(Long ebookId) {
+        this.ebookId = ebookId;
+    }
+
+    public Long getParent() {
+        return parent;
+    }
+
+    public void setParent(Long parent) {
+        this.parent = parent;
     }
 
     public String getName() {
@@ -41,25 +56,50 @@ public class DocSaveReq {
         this.name = name;
     }
 
-    public String getPassword() {
-        return password;
+    public Integer getSort() {
+        return sort;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setSort(Integer sort) {
+        this.sort = sort;
+    }
+
+    public Integer getViewCount() {
+        return viewCount;
+    }
+
+    public void setViewCount(Integer viewCount) {
+        this.viewCount = viewCount;
+    }
+
+    public Integer getVoteCount() {
+        return voteCount;
+    }
+
+    public void setVoteCount(Integer voteCount) {
+        this.voteCount = voteCount;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
     }
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(getClass().getSimpleName());
-        sb.append(" [");
-        sb.append("Hash = ").append(hashCode());
-        sb.append(", id=").append(id);
-        sb.append(", loginName=").append(loginName);
-        sb.append(", name=").append(name);
-        sb.append(", password=").append(password);
-        sb.append("]");
-        return sb.toString();
+        return "DocSaveReq{" +
+                "id=" + id +
+                ", ebookId=" + ebookId +
+                ", parent=" + parent +
+                ", name='" + name + '\'' +
+                ", sort=" + sort +
+                ", viewCount=" + viewCount +
+                ", voteCount=" + voteCount +
+                ", content='" + content + '\'' +
+                '}';
     }
 }
+
