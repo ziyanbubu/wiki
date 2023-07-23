@@ -1,10 +1,10 @@
 package com.gyx.wiki.config;
 
 //import com.gyx.wiki.interceptor.ActionInterceptor;
+
 import com.gyx.wiki.interceptor.LoginInterceptor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
-import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import javax.annotation.Resource;
@@ -24,6 +24,7 @@ public class SpringMvcConfig implements WebMvcConfigurer {
                         "/category/all",
                         "/ebook/list",
                         "/doc/all/**",
+                        "/doc/vote/**",
                         "/doc/find-content/**"
                 );
     }
