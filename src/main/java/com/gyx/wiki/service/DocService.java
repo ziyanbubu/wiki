@@ -5,6 +5,8 @@ import com.github.pagehelper.PageInfo;
 import com.gyx.wiki.domain.Content;
 import com.gyx.wiki.domain.Doc;
 import com.gyx.wiki.domain.DocExample;
+import com.gyx.wiki.exception.BusinessException;
+import com.gyx.wiki.exception.BusinessExceptionCode;
 import com.gyx.wiki.mapper.ContentMapper;
 import com.gyx.wiki.mapper.DocMapper;
 import com.gyx.wiki.mapper.DocMapperCust;
@@ -13,6 +15,8 @@ import com.gyx.wiki.req.DocSaveReq;
 import com.gyx.wiki.res.DocQueryResp;
 import com.gyx.wiki.res.PageResp;
 import com.gyx.wiki.util.CopyUtil;
+import com.gyx.wiki.util.RedisUtil;
+import com.gyx.wiki.util.RequestContext;
 import com.gyx.wiki.util.SnowFlake;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -40,6 +44,9 @@ public class DocService {
 
     @Resource
     private SnowFlake snowFlake;
+
+    @Resource
+    public RedisUtil redisUtil;
     public PageResp<DocQueryResp> list(DocQueryReq req){
 
         DocExample docExample = new DocExample();
@@ -136,6 +143,13 @@ public class DocService {
      * 点赞
      */
     public void vote(Long id) {
-        docMapperCust.increaseVoteCount(id);
+        // docMapperCust.increaseVoteCount(id);
+        // 远程IP+doc.id作为key，24小时内不能重复
+        String ip = RequestContext.getRemoteAddr();
+        if (redisUtil.validateRepeat("DOC_VOTE_" + id + "_" + ip, 3600 * 24)) {
+            docMapperCust.increaseVoteCount(id);
+        } else {
+            throw new BusinessException(BusinessExceptionCode.VOTE_REPEAT);
+        }
     }
 }
