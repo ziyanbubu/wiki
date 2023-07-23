@@ -1,5 +1,6 @@
 package com.gyx.wiki.controller;
 
+import com.gyx.wiki.req.UserLoginReq;
 import com.gyx.wiki.req.UserQueryReq;
 import com.gyx.wiki.req.UserResetPasswordReq;
 import com.gyx.wiki.req.UserSaveReq;
@@ -49,6 +50,15 @@ public class UserController {
         req.setPassword(DigestUtils.md5DigestAsHex(req.getPassword().getBytes()));
         CommonResp resp = new CommonResp<>();
         userService.resetPassword(req);
+        return resp;
+    }
+
+    @PostMapping("/login")
+    public CommonResp login(@Valid @RequestBody UserLoginReq req) {
+        req.setPassword(DigestUtils.md5DigestAsHex(req.getPassword().getBytes()));
+        CommonResp<com.gyx.wiki.resp.UserLoginResp> resp = new CommonResp<>();
+        com.gyx.wiki.resp.UserLoginResp userLoginResp = userService.login(req);
+        resp.setContent(userLoginResp);
         return resp;
     }
 }

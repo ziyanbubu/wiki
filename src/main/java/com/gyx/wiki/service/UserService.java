@@ -7,6 +7,7 @@ import com.gyx.wiki.domain.UserExample;
 import com.gyx.wiki.exception.BusinessException;
 import com.gyx.wiki.exception.BusinessExceptionCode;
 import com.gyx.wiki.mapper.UserMapper;
+import com.gyx.wiki.req.UserLoginReq;
 import com.gyx.wiki.req.UserQueryReq;
 import com.gyx.wiki.req.UserResetPasswordReq;
 import com.gyx.wiki.req.UserSaveReq;
@@ -112,5 +113,28 @@ public class UserService {
     public void resetPassword(UserResetPasswordReq req) {
         User user = CopyUtil.copy(req, User.class);
         userMapper.updateByPrimaryKeySelective(user);
+    }
+
+
+    /**
+     * 登录
+     */
+    public com.gyx.wiki.resp.UserLoginResp login(UserLoginReq req) {
+        User userDb = selectByLoginName(req.getLoginName());
+        if (ObjectUtils.isEmpty(userDb)) {
+            // 用户名不存在
+            LOG.info("用户名不存在, {}", req.getLoginName());
+            throw new BusinessException(BusinessExceptionCode.USER_LOGIN_NAME_EXIST);
+        } else {
+            if (userDb.getPassword().equals(req.getPassword())) {
+                // 登录成功
+                com.gyx.wiki.resp.UserLoginResp userLoginResp = CopyUtil.copy(userDb, com.gyx.wiki.resp.UserLoginResp.class);
+                return userLoginResp;
+            } else {
+                // 密码不对
+                LOG.info("密码不对, 输入密码：{}, 数据库密码：{}", req.getPassword(), userDb.getPassword());
+                throw new BusinessException(BusinessExceptionCode.USER_LOGIN_NAME_EXIST);
+            }
+        }
     }
 }
