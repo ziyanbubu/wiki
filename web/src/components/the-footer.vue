@@ -1,6 +1,6 @@
 <template>
   <a-layout-footer style="text-align: center">
-    wiki电子书，欢迎：{{user.name}}
+    wiki电子书<span v-show="user.id">，欢迎：{{user.name}}</span>
   </a-layout-footer>
 </template>
 
